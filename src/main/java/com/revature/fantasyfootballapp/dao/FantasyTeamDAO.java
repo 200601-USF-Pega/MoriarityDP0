@@ -5,15 +5,15 @@ import com.revature.fantasyfootballapp.model.FantasyTeam;
 public interface FantasyTeamDAO {
 
 	public FantasyTeam getFantasyTeam(String user);
-	public void makeNewFantasyTeam(FantasyTeam newTeam);
-	public void dropFantasyTeam(FantasyTeam team);
-	public void replaceQB(String oldQb, String newQb);
-	public void replaceRB1(String oldRb1, String newRb1);
-	public void replaceRB2(String oldRb2, String newRb2);
-	public void replaceWR1(String oldWr1, String newWr1);
-	public void replaceWR2(String oldWr2, String newWr2);
-	public void replaceTE(String oldTe, String newTe);
-	public void replaceFlex(String oldFlex, String newFlex);
-	public void replaceDST(String oldDSt, String newDSt);
-	public void replaceK(String oldK, String newK);
+	public boolean makeNewFantasyTeam(FantasyTeam newTeam);
+	public boolean dropFantasyTeam(FantasyTeam team);
+	public boolean replaceQB(String user, String newQb);
+	public boolean replaceRB1(String user, String newRb1);
+	public boolean replaceRB2(String user, String newRb2);
+	public boolean replaceWR1(String user, String newWr1);
+	public boolean replaceWR2(String user, String newWr2);
+	public boolean replaceTE(String user, String newTe);
+	public boolean replaceFlex(String user, String newFlex);
+	public boolean replaceDST(String user, String newDSt);
+	public boolean replaceK(String user, String newK);
 }

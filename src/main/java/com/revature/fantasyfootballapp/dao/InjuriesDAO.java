@@ -9,6 +9,4 @@ public interface InjuriesDAO {
 
 	public Injuries getPlayerHealth(Player player);
 	public List<Injuries> getIRList();
-	public void updateInjury(Injuries injury); //admin only
-	public void deleteFromIR(Injuries injury); //admin only
 }

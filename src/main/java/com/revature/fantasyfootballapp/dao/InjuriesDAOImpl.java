@@ -1,0 +1,60 @@
+package com.revature.fantasyfootballapp.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.fantasyfootballapp.model.Injuries;
+import com.revature.fantasyfootballapp.model.Player;
+
+public class InjuriesDAOImpl implements InjuriesDAO{
+
+	Connection connection = null;
+	PreparedStatement stmt = null;
+	
+	@Override
+	public Injuries getPlayerHealth(Player player) {
+		Injuries injury = new Injuries();
+		try {
+			connection = DAOUtilities.getConnection();
+			stmt = connection.prepareStatement("SELECT * FROM INJURIES WHERE name= ?");
+			stmt.setString(1, player.getName());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				injury.setName(rs.getString("name"));
+				injury.setHealthStatus(rs.getString("health_status").charAt(0));
+				injury.setInjury(rs.getString("injury"));
+				injury.setWeekToReturn(rs.getInt("week_to_return"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Could not commit transaction!");
+			e.printStackTrace();
+		}
+		return injury;
+	}
+
+	@Override
+	public List<Injuries> getIRList() {
+		List<Injuries> injuries = new ArrayList<>()	;
+		try {
+			connection = DAOUtilities.getConnection();
+			stmt = connection.prepareStatement("SELECT * FROM INJURIES");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Injuries injury = new Injuries();
+				injury.setName(rs.getString("name"));
+				injury.setHealthStatus(rs.getString("health_status").charAt(0));
+				injury.setInjury(rs.getString("injury"));
+				injury.setWeekToReturn(rs.getInt("week_to_return"));
+				injuries.add(injury);
+			} 
+		}catch (SQLException e) {
+				System.out.println("Could not commit transaction!");
+				e.printStackTrace();
+		}
+		return injuries;
+	}
+}

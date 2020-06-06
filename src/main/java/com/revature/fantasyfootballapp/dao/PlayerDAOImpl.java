@@ -17,7 +17,7 @@ public class PlayerDAOImpl implements PlayerDAO{
 		Player player = new Player();
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("SELECT * FROM PLAYERS WHERE name=?");
+			stmt = connection.prepareStatement("SELECT * FROM PLAYERS WHERE name= ?");
 			stmt.setString(1, playerName);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -34,12 +34,4 @@ public class PlayerDAOImpl implements PlayerDAO{
 		}
 		return player;
 	}
-	//admin only
-	@Override
-	public void updatePlayer(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 }
