@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.Injuries;
 import com.revature.fantasyfootballapp.model.Player;
 
 public class InjuriesDAOImpl implements InjuriesDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	
@@ -30,8 +34,7 @@ public class InjuriesDAOImpl implements InjuriesDAO{
 				injury.setWeekToReturn(rs.getInt("week_to_return"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not commit transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getPlayerHealth");
 		}
 		return injury;
 	}
@@ -52,8 +55,7 @@ public class InjuriesDAOImpl implements InjuriesDAO{
 				injuries.add(injury);
 			} 
 		}catch (SQLException e) {
-				System.out.println("Could not commit transaction!");
-				e.printStackTrace();
+				LOGGER.debug("at getIRList");
 		}
 		return injuries;
 	}

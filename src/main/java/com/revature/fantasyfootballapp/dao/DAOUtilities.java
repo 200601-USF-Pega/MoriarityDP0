@@ -1,13 +1,15 @@
 package com.revature.fantasyfootballapp.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 public class DAOUtilities {
 
-	private static final String CONNECTION_USERNAME = "postgres";
-	private static final String CONNECTION_PASSWORD = "Aubreenoel";
-	private static final String URL = "jdbc:postgresql://localhost:5432/fantasy_predictor";
+	
+
 	
 	private static UserDAOImpl userDAOImpl;
 	private static Connection connection;
@@ -27,13 +29,16 @@ public class DAOUtilities {
 				System.out.println("Could not register driver!");
 				e.printStackTrace();
 			}
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
-		}
-		
-		//If connection was closed then retrieve a new connection
-		if (connection.isClosed()){
-			System.out.println("Opening new connection...");
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
+			try {
+				FileInputStream fis = new FileInputStream("connection.prop");
+				Properties p = new Properties();
+				p.load(fis);
+				connection = DriverManager.getConnection(p.getProperty("URL"), p.getProperty("USERNAME"), p.getProperty("PASSWORD"));
+			} catch (IOException e) {
+				System.out.println("Could not get connection!");
+				System.out.println(e.getMessage());
+			}
+			
 		}
 		return connection;
 	}

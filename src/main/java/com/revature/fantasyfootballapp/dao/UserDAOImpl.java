@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.User;
 
 public class UserDAOImpl implements UserDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	@Override
@@ -27,8 +31,7 @@ public class UserDAOImpl implements UserDAO{
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Could not get connection!");
-			e.printStackTrace();
+			LOGGER.debug("at getUser");
 		}
 		return user;	
 	}
@@ -48,8 +51,7 @@ public class UserDAOImpl implements UserDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not create connection!");
-			e.printStackTrace();
+			LOGGER.debug("at addUser");
 			return false;
 		}
 	}
@@ -68,8 +70,7 @@ public class UserDAOImpl implements UserDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not create connection!");
-			e.printStackTrace();
+			LOGGER.debug("at deleteUser");
 			return false;
 		}
 	}

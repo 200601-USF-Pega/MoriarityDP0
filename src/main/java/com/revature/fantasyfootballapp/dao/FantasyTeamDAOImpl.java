@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.FantasyTeam;
 
 public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	
@@ -33,8 +37,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				team.setK(rs.getString("k"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getFantasyTeam");
 		}
 		return team;
 	}
@@ -60,8 +63,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at makeNewFantasyTeam");
 			return false;
 		}
 		
@@ -79,8 +81,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at dropFantasyTeam");
 			return false;
 		}
 	}
@@ -98,8 +99,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replaceQB");
 			return false;
 		}
 	}
@@ -117,8 +117,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replaceRB1");
 			return false;
 		}
 	}
@@ -136,8 +135,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replace RB2");
 			return false;
 		}
 	}
@@ -155,8 +153,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replace WR1");
 			return false;
 		}
 	}
@@ -174,8 +171,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replace WR2");
 			return false;
 		}
 	}
@@ -193,8 +189,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replaceTE");
 			return false;
 		}
 	}
@@ -212,8 +207,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replaceFlex");
 			return false;
 		}
 	}
@@ -231,8 +225,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at replaceDST");
 			return false;
 		}
 	}
@@ -250,8 +243,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("replaceK");
 			return false;
 		}
 	}

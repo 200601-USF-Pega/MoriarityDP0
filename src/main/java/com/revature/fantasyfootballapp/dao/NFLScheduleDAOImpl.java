@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.NFLSchedule;
 import com.revature.fantasyfootballapp.model.NFLTeam;
 
 public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	
@@ -33,9 +37,9 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 				games.add(game);
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getWeek");
 		}
+		
 		return games;
 	}
 
@@ -57,8 +61,7 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getNextOpponent");
 			opponent = "";
 		}
 		return opponent;
@@ -81,8 +84,7 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 				schedule.add(week);
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getFullSchedule");
 		}
 		return schedule;
 	}
@@ -104,8 +106,7 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 				schedule.add(week);
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getRemainingSchedule");
 		}
 		return schedule;
 	}
@@ -128,8 +129,7 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at getScheduleForTeam");
 		}
 		return schedule;
 	}

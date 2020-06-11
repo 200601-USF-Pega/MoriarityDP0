@@ -5,13 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.revature.fantasyfootballapp.model.Player;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import com.revature.fantasyfootballapp.model.Player;
+import java.math.*;
 public class PlayerDAOImpl implements PlayerDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
-	
+
 	@Override
 	public Player getPlayerByName(String playerName) {
 		Player player = new Player();
@@ -29,8 +33,7 @@ public class PlayerDAOImpl implements PlayerDAO{
 				player.setPredictedPts(rs.getDouble("predicted_pts"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not get connection!");
-			e.printStackTrace();
+			LOGGER.debug("at getPlayerByName");
 		}
 		return player;
 	}

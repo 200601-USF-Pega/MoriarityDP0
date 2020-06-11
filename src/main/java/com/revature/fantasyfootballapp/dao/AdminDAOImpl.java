@@ -5,13 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.Injuries;
 import com.revature.fantasyfootballapp.model.NFLSchedule;
 import com.revature.fantasyfootballapp.model.NFLTeam;
 import com.revature.fantasyfootballapp.model.Player;
 
 public class AdminDAOImpl implements AdminDAO{
-
+	
+	private static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	
@@ -30,8 +34,7 @@ public class AdminDAOImpl implements AdminDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at updateInjury");
 			return false;
 		}
 	}
@@ -48,31 +51,26 @@ public class AdminDAOImpl implements AdminDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at deleteFromIR");
 			return false;
 		}
 	}
 
-	//check implementation
 	@Override
-	public boolean updateWeek(List<NFLSchedule> week) {
+	public boolean updateGame(NFLSchedule game) {
 		try {
 			connection = DAOUtilities.getConnection();
-			for (int k = 0; k < week.size(); k++) {
-				NFLSchedule game = week.remove(k);
-				stmt = connection.prepareStatement("UPDATE NFL_SCHEDULE SET result=? WHERE week=? AND team=?");
-				stmt.setString(1, game.getResult());
-				stmt.setInt(2, game.getWeek());
-				stmt.setString(3, game.getTeam());
-				if (stmt.executeUpdate() == 0) {
-					return false;
-				}
+			stmt = connection.prepareStatement("UPDATE NFL_SCHEDULE SET result=? WHERE team=? AND week=?;");
+			stmt.setString(1, game.getResult());
+			stmt.setString(2, game.getTeam());
+			stmt.setInt(3, game.getWeek());
+			if (stmt.executeUpdate() != 0) {
+				return true;
+			} else {
+				return false;
 			}
-			return true;
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at updateGame");
 			return false;
 		}		
 	}
@@ -81,21 +79,16 @@ public class AdminDAOImpl implements AdminDAO{
 	public boolean updateTeam(NFLTeam team) {
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("UPDATE NFL_TEAM_STATS SET record=?, next_opponent=?,"
-					+ " offensive_efficiency=?, defensive_efficiency=? WHERE team=?");
+			stmt = connection.prepareStatement("UPDATE NFL_TEAM_STATS SET record=? WHERE team=?");
 			stmt.setString(1, team.getRecord());
-			stmt.setString(2, team.getNextOpponent());
-			stmt.setDouble(3, team.getOffensiveEfficiency());
-			stmt.setDouble(4, team.getDefensiveEfficiency());
-			stmt.setString(5, team.getTeam());
+			stmt.setString(2, team.getTeam());
 			if (stmt.executeUpdate() != 0) {
 				return true;
 			} else {
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at updateTeam");
 			return false;
 		}
 	}
@@ -117,8 +110,7 @@ public class AdminDAOImpl implements AdminDAO{
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not complete transaction!");
-			e.printStackTrace();
+			LOGGER.debug("at updatePlayer");
 			return false;
 		}		
 	}

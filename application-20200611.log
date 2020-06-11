@@ -1,0 +1,2 @@
+2020-06-11 14:03:16.547 [main] DEBUG com.revature.fantasyfootballapp.driver.Driver - debug message
+2020-06-11 14:07:33.960 [main] ERROR com.revature.fantasyfootballapp.dao.AdminDAOImpl - ERORR at deleteFromIR

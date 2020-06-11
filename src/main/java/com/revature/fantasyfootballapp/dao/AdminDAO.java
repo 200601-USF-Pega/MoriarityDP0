@@ -11,7 +11,7 @@ public interface AdminDAO {
 
 	public boolean updateInjury(Injuries injury);
 	public boolean deleteFromIR(Injuries injury);
-	public boolean updateWeek(List<NFLSchedule> week); 
+	public boolean updateGame(NFLSchedule game); 
 	public boolean updateTeam(NFLTeam team);
 	public boolean updatePlayer(Player player);
 }

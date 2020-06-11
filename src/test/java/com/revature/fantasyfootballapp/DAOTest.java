@@ -36,9 +36,10 @@ public class DAOTest {
 	
 	@Test
 	public void test() {
-		AdminDAO instance = new AdminDAOImpl();
-		Player player = new Player("Lamar Jackson", "QB", "Baltimore Ravens", 25.98126, 'H', true, 23.13126);
-		assertTrue(instance.updatePlayer(player));
+		FantasyTeamDAO instance = new FantasyTeamDAOImpl();
+		FantasyTeam team = instance.getFantasyTeam("user1");
+		System.out.println(team.toString());
+		
 		
 	}
 

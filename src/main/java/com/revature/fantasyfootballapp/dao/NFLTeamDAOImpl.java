@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.fantasyfootballapp.model.NFLTeam;
 
 public class NFLTeamDAOImpl implements NFLTeamDAO{
 
+	static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	
@@ -30,8 +34,7 @@ public class NFLTeamDAOImpl implements NFLTeamDAO{
 				team.setDefensiveEfficiency(rs.getDouble("defensive_efficiency"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Could not create connection!");
-			e.printStackTrace();
+			LOGGER.debug("at getNFLTeam");
 		}
 		
 		return team;
