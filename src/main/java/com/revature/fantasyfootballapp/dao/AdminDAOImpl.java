@@ -1,5 +1,6 @@
 package com.revature.fantasyfootballapp.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ public class AdminDAOImpl implements AdminDAO{
 	private static Logger LOGGER = LogManager.getLogger();
 	Connection connection = null;
 	PreparedStatement stmt = null;
+	CallableStatement cstmt = null;
 	
 	@Override
 	public boolean updateInjury(Injuries injury) {
@@ -76,19 +78,70 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public boolean updateTeam(NFLTeam team) {
+	public boolean updateWins() {
 		try {
-			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("UPDATE NFL_TEAM_STATS SET record=? WHERE team=?");
-			stmt.setString(1, team.getRecord());
-			stmt.setString(2, team.getTeam());
-			if (stmt.executeUpdate() != 0) {
+			connection= DAOUtilities.getConnection();
+			cstmt = connection.prepareCall("call w_update();");
+			cstmt.execute();
+			if (cstmt.SUCCESS_NO_INFO != 0) {
 				return true;
 			} else {
 				return false;
 			}
 		} catch (SQLException e) {
-			LOGGER.debug("at updateTeam");
+			LOGGER.debug("at updateWins");
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public boolean updateLosses() {
+		try {
+			connection = DAOUtilities.getConnection();
+			cstmt = connection.prepareCall("call l_update();");
+			cstmt.execute();
+			if (cstmt.SUCCESS_NO_INFO != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			LOGGER.debug("at updateLosses");
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateTies() {
+		try {
+			connection = DAOUtilities.getConnection();
+			cstmt = connection.prepareCall("call t_update();");
+			cstmt.execute();
+			if (cstmt.SUCCESS_NO_INFO != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			LOGGER.debug("at updateTies");
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateNextOpponent() {
+		try {
+			connection = DAOUtilities.getConnection();
+			cstmt = connection.prepareCall("call next_opponent();");
+			cstmt.execute();
+			if (cstmt.SUCCESS_NO_INFO != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			LOGGER.debug("at updateNextOpponent");
 			return false;
 		}
 	}
@@ -114,5 +167,9 @@ public class AdminDAOImpl implements AdminDAO{
 			return false;
 		}		
 	}
+
+	
+
+	
 
 }

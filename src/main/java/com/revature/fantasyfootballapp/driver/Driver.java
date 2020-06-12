@@ -15,7 +15,6 @@ public class Driver {
 		IMenu menu = new MainMenu();
 		menu.getMenu(sc, "login");
 		sc.close();
-		
 	}
 
 }

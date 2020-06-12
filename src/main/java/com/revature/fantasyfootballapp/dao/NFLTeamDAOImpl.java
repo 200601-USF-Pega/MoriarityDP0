@@ -28,7 +28,9 @@ public class NFLTeamDAOImpl implements NFLTeamDAO{
 			
 			while (rs.next()) {
 				team.setTeam(rs.getString("team"));
-				team.setRecord(rs.getString("record"));
+				team.setWins(rs.getInt("w"));
+				team.setLosses(rs.getInt("l"));
+				team.setTies(rs.getInt("t"));
 				team.setNextOpponent(rs.getString("next_opponent"));
 				team.setOffensiveEfficiency(rs.getDouble("offensive_efficiency"));
 				team.setDefensiveEfficiency(rs.getDouble("defensive_efficiency"));

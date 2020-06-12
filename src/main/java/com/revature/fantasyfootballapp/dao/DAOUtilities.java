@@ -40,6 +40,18 @@ public class DAOUtilities {
 			}
 			
 		}
+		
+		if (connection.isClosed()) {
+			try {
+				FileInputStream fis = new FileInputStream("connection.prop");
+				Properties p = new Properties();
+				p.load(fis);
+				connection = DriverManager.getConnection(p.getProperty("URL"), p.getProperty("USERNAME"), p.getProperty("PASSWORD"));
+			} catch (IOException e) {
+				System.out.println("Could not get connection!");
+				System.out.println(e.getMessage());
+			}
+		}
 		return connection;
 	}
 }

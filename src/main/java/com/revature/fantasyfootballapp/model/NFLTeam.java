@@ -3,7 +3,9 @@ package com.revature.fantasyfootballapp.model;
 public class NFLTeam {
 
 	private String team;
-	private String record;
+	private int wins;
+	private int losses;
+	private int ties;
 	private String nextOpponent;
 	private double offensiveEfficiency;
 	private double defensiveEfficiency;
@@ -12,11 +14,13 @@ public class NFLTeam {
 		
 	}
 
-	public NFLTeam(String team, String record, String nextOpponent, double offensiveEfficiency,
+	public NFLTeam(String team, int wins, int losses, int ties, String nextOpponent, double offensiveEfficiency,
 			double defensiveEfficiency) {
 		super();
 		this.team = team;
-		this.record = record;
+		this.wins = wins;
+		this.losses = losses;
+		this.ties = ties;
 		this.nextOpponent = nextOpponent;
 		this.offensiveEfficiency = offensiveEfficiency;
 		this.defensiveEfficiency = defensiveEfficiency;
@@ -30,12 +34,28 @@ public class NFLTeam {
 		this.team = team;
 	}
 
-	public String getRecord() {
-		return record;
+	public int getWins() {
+		return wins;
 	}
 
-	public void setRecord(String record) {
-		this.record = record;
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
+
+	public int getLosses() {
+		return losses;
+	}
+
+	public void setLosses(int losses) {
+		this.losses = losses;
+	}
+
+	public int getTies() {
+		return ties;
+	}
+
+	public void setTies(int ties) {
+		this.ties = ties;
 	}
 
 	public String getNextOpponent() {
@@ -64,7 +84,7 @@ public class NFLTeam {
 
 	@Override
 	public String toString() {
-		return "[team=" + team + ", record=" + record + ", nextOpponent=" + nextOpponent
+		return "[team=" + team + ", record=" + wins + "-" + losses + "-" + ties + ", nextOpponent=" + nextOpponent
 				+ ", offensiveEfficiency=" + offensiveEfficiency + ", defensiveEfficiency=" + defensiveEfficiency + "]";
 	}
 	

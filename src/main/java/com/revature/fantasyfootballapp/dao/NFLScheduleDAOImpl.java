@@ -45,24 +45,31 @@ public class NFLScheduleDAOImpl implements NFLScheduleDAO{
 
 
 	@Override
-	public String getNextOpponent(int weekNumber, NFLTeam team) {
-		String opponent;
+	public NFLTeam getNextOpponent(int weekNumber, NFLTeam team) {
+		NFLTeam opponent = new NFLTeam();
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("SELECT * FROM NFL_SCHEDULE WHERE week= ? AND team= ?");
+			stmt = connection.prepareStatement("SELECT nfl_team_stats.* FROM nfl_team_stats LEFT JOIN nfl_schedule"
+					+ " ON nfl_schedule.team = nfl_team_stats.team "
+					+ "WHERE nfl_schedule.week = ? AND nfl_schedule.opponent=?;");
 			stmt.setInt(1, weekNumber);
 			stmt.setString(2, team.getTeam());
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				opponent = rs.getString("opponent");
-			} else {
-				opponent = "BYE";
+			while (rs.next()) {
+				opponent.setTeam(rs.getString("team"));
+				opponent.setWins(rs.getInt("w"));
+				opponent.setLosses(rs.getInt("l"));
+				opponent.setTies(rs.getInt("t"));
+				opponent.setNextOpponent(rs.getString("next_opponent"));
+				opponent.setOffensiveEfficiency(rs.getDouble("offensive_efficiency"));
+				opponent.setDefensiveEfficiency(rs.getDouble("defensive_efficiency"));
 			}
-			
+			if (opponent.getTeam() == null) {
+				opponent.setTeam("BYE");
+			}
 		} catch (SQLException e) {
 			LOGGER.debug("at getNextOpponent");
-			opponent = "";
 		}
 		return opponent;
 	}

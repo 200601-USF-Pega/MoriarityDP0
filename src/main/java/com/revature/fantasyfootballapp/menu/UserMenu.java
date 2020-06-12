@@ -157,9 +157,8 @@ public class UserMenu implements IMenu{
 					String teamName = sc.nextLine();
 					NFLTeam team = teamDb.getNFLTeam(teamName);
 					System.out.println(team.toString());
-					System.out.println("vs");
-					String opponentName = schedDb.getNextOpponent(week, team);
-					NFLTeam opponent = teamDb.getNFLTeam(opponentName);
+					System.out.println("vs"); 
+					NFLTeam opponent = schedDb.getNextOpponent(week, team);
 					System.out.println(opponent.toString());
 					break;
 				} 

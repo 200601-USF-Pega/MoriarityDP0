@@ -3,22 +3,15 @@ package com.revature.fantasyfootballapp.menu;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.revature.fantasyfootballapp.dao.AdminDAO;
 import com.revature.fantasyfootballapp.dao.AdminDAOImpl;
 import com.revature.fantasyfootballapp.dao.NFLScheduleDAO;
 import com.revature.fantasyfootballapp.dao.NFLScheduleDAOImpl;
-import com.revature.fantasyfootballapp.dao.NFLTeamDAO;
-import com.revature.fantasyfootballapp.dao.NFLTeamDAOImpl;
 import com.revature.fantasyfootballapp.model.Injuries;
 import com.revature.fantasyfootballapp.model.NFLSchedule;
 import com.revature.fantasyfootballapp.model.NFLTeam;
 
 public class AdminMenu implements IMenu{
-
-	private static final Logger LOGGER = LogManager.getLogger();
 	
 	@Override
 	public void getMenu(Scanner sc, String user) {
@@ -28,8 +21,7 @@ public class AdminMenu implements IMenu{
 			System.out.println("Welcome admin. What would you like to do?");
 			System.out.println("[0] Update an injury?");
 			System.out.println("[1] Update scores?");
-			System.out.println("[2] Update team records?");
-			System.out.println("[3] Log Out");
+			System.out.println("[2] Log Out");
 			choice = Integer.parseInt(sc.nextLine());
 			if (choice == 0) {
 				Injuries update = new Injuries();
@@ -58,11 +50,12 @@ public class AdminMenu implements IMenu{
 				}
 			} else if (choice == 1) {
 				boolean done = false;
-				while (!done) {
 				System.out.println("What week would you like to update?");
 				int weekNumber = Integer.parseInt(sc.nextLine());
-				NFLScheduleDAO scheduleDb = new NFLScheduleDAOImpl();
-				List<NFLSchedule> week = scheduleDb.getWeek(weekNumber);
+				while (!done) {
+					System.out.println();
+					NFLScheduleDAO scheduleDb = new NFLScheduleDAOImpl();
+					List<NFLSchedule> week = scheduleDb.getWeek(weekNumber);
 				
 					for (NFLSchedule game : week) {
 							System.out.println(game.toString());
@@ -85,7 +78,8 @@ public class AdminMenu implements IMenu{
 					NFLTeam team1 = new NFLTeam();
 					team1.setTeam(gameTeam.getTeam());
 					NFLSchedule gameOpponent = new NFLSchedule();
-					String findOtherTeam = scheduleDb.getNextOpponent(weekNumber, team1);
+					NFLTeam opponent = scheduleDb.getNextOpponent(weekNumber, team1);
+					String findOtherTeam = opponent.getTeam();
 					gameOpponent.setTeam(findOtherTeam);
 					gameOpponent.setWeek(weekNumber);
 					String newResult;
@@ -101,32 +95,15 @@ public class AdminMenu implements IMenu{
 					if (week.size() == 0) {
 						done = true;
 					}
+					
 				}
-			} else if (choice == 2) {
-				boolean done = false;
-				while (!done) {
-					System.out.println("What team would you like to update? (Type done to quit)");
-					String teamName = sc.nextLine();
-					if (teamName.equals("done")) {
-						break;
-					}
-					NFLTeamDAO teamDb = new NFLTeamDAOImpl();
-					NFLTeam team = new NFLTeam();
-					team.setTeam(teamName);
-					System.out.println("What is their record?");
-					String record = sc.nextLine();
-					team.setRecord(record);
-					boolean success = adminDb.updateTeam(team);
-					if (success) {
-						System.out.println("Team record updated successfully!");
-					} else {
-						System.out.println("Something went wrong. Please try another update.");
-					}
-				}
-				
 			}
-		} while (choice != 3);
+		} while (choice != 2);
 		
+		adminDb.updateWins();
+		adminDb.updateLosses();
+		adminDb.updateTies();
+		adminDb.updateNextOpponent();
 		
 		
 	}
