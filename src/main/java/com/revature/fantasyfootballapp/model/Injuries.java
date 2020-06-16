@@ -1,5 +1,7 @@
 package com.revature.fantasyfootballapp.model;
 
+import com.revature.fantasyfootballapp.exceptions.HealthyPlayerException;
+
 public class Injuries {
 
 	@Override
@@ -68,7 +70,12 @@ public class Injuries {
 	}
 
 	public void setHealthStatus(char healthStatus) {
-		this.healthStatus = healthStatus;
+		if (healthStatus == 'H') {
+			throw new HealthyPlayerException();
+		} else {
+			this.healthStatus = healthStatus;
+		}
+		
 	}
 
 	public String getInjury() {
