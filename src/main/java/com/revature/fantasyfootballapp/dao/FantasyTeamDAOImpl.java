@@ -73,7 +73,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 	public boolean dropFantasyTeam(FantasyTeam team) {
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("DELETE FROM FANTASY_TEAMS WHERE username= ?");
+			stmt = connection.prepareStatement("DELETE FROM FANTASY_TEAMS WHERE username=?");
 			stmt.setString(1, team.getUser());
 			if (stmt.executeUpdate() != 0) {
 				return true;
@@ -180,7 +180,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 	public boolean replaceTE(String user, String newTe) {
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("UPDATE FANTASY_TEAMS SET te=? WHERE username=?");
+			stmt = connection.prepareStatement("UPDATE FANTASY_TEAMS SET te=? WHERE username=?;");
 			stmt.setString(1,  newTe);
 			stmt.setString(2, user);
 			if (stmt.executeUpdate() != 0) {
@@ -198,7 +198,7 @@ public class FantasyTeamDAOImpl implements FantasyTeamDAO{
 	public boolean replaceFlex(String user, String newFlex) {
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("UPDATE FANTASY_TEAMS SET flex=? WHERE username=?");
+			stmt = connection.prepareStatement("UPDATE FANTASY_TEAMS SET flex=? WHERE username=?;");
 			stmt.setString(1,  newFlex);
 			stmt.setString(2, user);
 			if (stmt.executeUpdate() != 0) {

@@ -22,7 +22,7 @@ public class NFLTeamDAOImpl implements NFLTeamDAO{
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("SELECT * FROM NFL_TEAM_STATS WHERE team= ?");
+			stmt = connection.prepareStatement("SELECT * FROM NFL_TEAM_STATS WHERE team=?");
 			stmt.setString(1, teamName);
 			ResultSet rs = stmt.executeQuery();
 			

@@ -1,0 +1,20 @@
+2020-06-15 20:38:25.611 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at dropFantasyTeam
+2020-06-15 20:38:25.899 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at makeNewFantasyTeam
+2020-06-15 20:38:26.169 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - replaceK
+2020-06-15 20:38:26.450 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replaceRB1
+2020-06-15 20:38:26.724 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replace RB2
+2020-06-15 20:38:26.982 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replaceQB
+2020-06-15 20:38:27.284 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replaceTE
+2020-06-15 20:38:27.829 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replace WR1
+2020-06-15 20:38:28.102 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replace WR2
+2020-06-15 20:38:28.375 [main] DEBUG com.revature.fantasyfootballapp.dao.FantasyTeamDAOImpl - at replaceDST
+2020-06-15 20:38:28.650 [main] DEBUG com.revature.fantasyfootballapp.dao.InjuriesDAOImpl - at getPlayerHealth
+2020-06-15 20:38:28.937 [main] DEBUG com.revature.fantasyfootballapp.dao.InjuriesDAOImpl - at getIRList
+2020-06-15 20:38:29.214 [main] DEBUG com.revature.fantasyfootballapp.dao.NFLScheduleDAOImpl - at getScheduleForTeam
+2020-06-15 20:38:29.740 [main] DEBUG com.revature.fantasyfootballapp.dao.NFLScheduleDAOImpl - at getNextOpponent
+2020-06-15 20:38:30.025 [main] DEBUG com.revature.fantasyfootballapp.dao.NFLScheduleDAOImpl - at getWeek
+2020-06-15 20:38:30.289 [main] DEBUG com.revature.fantasyfootballapp.dao.NFLTeamDAOImpl - at getNFLTeam
+2020-06-15 20:38:30.544 [main] DEBUG com.revature.fantasyfootballapp.dao.PlayerDAOImpl - at getPlayerByName
+2020-06-15 20:38:30.825 [main] DEBUG com.revature.fantasyfootballapp.dao.UserDAOImpl - at addUser
+2020-06-15 20:38:31.077 [main] DEBUG com.revature.fantasyfootballapp.dao.UserDAOImpl - at getUser
+2020-06-15 20:38:31.354 [main] DEBUG com.revature.fantasyfootballapp.dao.UserDAOImpl - at deleteUser

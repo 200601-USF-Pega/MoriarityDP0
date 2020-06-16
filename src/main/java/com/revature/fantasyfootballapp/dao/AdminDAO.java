@@ -10,11 +10,11 @@ import com.revature.fantasyfootballapp.model.Player;
 public interface AdminDAO {
 
 	public boolean updateInjury(Injuries injury);
+	public boolean addToIR(Injuries injury);
 	public boolean deleteFromIR(Injuries injury);
 	public boolean updateGame(NFLSchedule game); 
 	public boolean updateWins();
 	public boolean updateLosses();
 	public boolean updateTies();
 	public boolean updateNextOpponent();
-	public boolean updatePlayer(Player player);
 }

@@ -40,6 +40,28 @@ public class AdminDAOImpl implements AdminDAO{
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean addToIR(Injuries injury) {
+		try {
+			connection = DAOUtilities.getConnection();
+			stmt = connection.prepareStatement("INSERT INTO injuries VALUES (?, ?, ?, ?);");
+			stmt.setString(1, injury.getName());
+			stmt.setString(2, String.valueOf(injury.getHealthStatus()));
+			stmt.setString(3, injury.getInjury());
+			stmt.setInt(4, injury.getWeekToReturn());
+			
+			if (stmt.executeUpdate() != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			LOGGER.debug("at addToIR");
+			return false;
+		}
+		
+	}
 
 	@Override
 	public boolean deleteFromIR(Injuries injury) {
@@ -145,31 +167,4 @@ public class AdminDAOImpl implements AdminDAO{
 			return false;
 		}
 	}
-
-	@Override
-	public boolean updatePlayer(Player player) {
-		try {
-			connection = DAOUtilities.getConnection();
-			stmt = connection.prepareStatement("UPDATE PLAYERS SET avg_fantasy_pts=?, health_status=?,"
-					+ " starting_status=?, predicted_pts=? WHERE name=? ");
-			stmt.setDouble(1, player.getAvgFantasyPts());
-			stmt.setString(2, String.valueOf(player.getHealthStatus()));
-			stmt.setBoolean(3, player.isStartingStatus());
-			stmt.setDouble(4, player.getPredictedPts());
-			stmt.setString(5, player.getName());
-			if (stmt.executeUpdate() != 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (SQLException e) {
-			LOGGER.debug("at updatePlayer");
-			return false;
-		}		
-	}
-
-	
-
-	
-
 }

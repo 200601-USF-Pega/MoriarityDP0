@@ -21,6 +21,7 @@ public class PlayerDAOImpl implements PlayerDAO{
 		Player player = new Player();
 		try {
 			connection = DAOUtilities.getConnection();
+			
 			stmt = connection.prepareStatement("SELECT * FROM PLAYERS WHERE name= ?");
 			stmt.setString(1, playerName);
 			ResultSet rs = stmt.executeQuery();
@@ -31,6 +32,15 @@ public class PlayerDAOImpl implements PlayerDAO{
 				player.setAvgFantasyPts(rs.getDouble("avg_fantasy_pts"));
 				player.setHealthStatus(rs.getString("health_status").charAt(0));
 				player.setPredictedPts(rs.getDouble("predicted_pts"));
+			}
+			PreparedStatement predictedPts = connection.prepareStatement("select get_pred_pts(nfl_team_stats.defensive_efficiency, players.avg_fantasy_pts) "
+					+ "from nfl_team_stats, players where nfl_team_stats.next_opponent= ? "
+					+ "and players.name=?;");
+			predictedPts.setString(1, player.getTeam());
+			predictedPts.setString(2, playerName);
+			ResultSet rs2 = predictedPts.executeQuery();
+			while (rs2.next()) {
+				player.setPredictedPts(rs2.getDouble("get_pred_pts"));
 			}
 		} catch (SQLException e) {
 			LOGGER.debug("at getPlayerByName");
