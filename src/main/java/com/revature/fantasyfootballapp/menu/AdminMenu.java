@@ -20,8 +20,9 @@ public class AdminMenu implements IMenu{
 		do {
 			System.out.println("Welcome admin. What would you like to do?");
 			System.out.println("[0] Update an injury?");
-			System.out.println("[1] Update scores?");
-			System.out.println("[2] Log Out");
+			System.out.println("[1] Add player to IR?");
+			System.out.println("[2] Update scores?");
+			System.out.println("[3] Log Out");
 			choice = Integer.parseInt(sc.nextLine());
 			if (choice == 0) {
 				Injuries update = new Injuries();
@@ -49,6 +50,25 @@ public class AdminMenu implements IMenu{
 					}
 				}
 			} else if (choice == 1) {
+				Injuries injury = new Injuries();
+				System.out.println("Player name: ");
+				injury.setName(sc.nextLine());
+				System.out.println("Health status: ");
+				injury.setHealthStatus(sc.nextLine().charAt(0));
+				System.out.println("Injury: ");
+				injury.setInjury(sc.nextLine());
+				System.out.println("Expected week to return: ");
+				injury.setWeekToReturn(Integer.parseInt(sc.nextLine()));
+				if (adminDb.addToIR(injury)) {
+					System.out.println();
+					System.out.println("Injury added successfully!");
+					System.out.println();
+				} else {
+					System.out.println();
+					System.out.println("Something went wrong. Please try again!");
+					System.out.println();
+				}
+			} else if (choice == 2) {
 				boolean done = false;
 				System.out.println("What week would you like to update?");
 				int weekNumber = Integer.parseInt(sc.nextLine());
@@ -98,7 +118,7 @@ public class AdminMenu implements IMenu{
 					
 				}
 			}
-		} while (choice != 2);
+		} while (choice != 3);
 		
 		adminDb.updateWins();
 		adminDb.updateLosses();
